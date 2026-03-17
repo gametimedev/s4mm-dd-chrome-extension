@@ -1,4 +1,8 @@
+![Extension Icon](icons/icon128.png)
+
 # S4MM-DD Chrome Extension
+
+
 
 ## Overview
 The S4MM-DD Chrome Extension is a companion tool for the Sims 4 Mod Manager. It enhances your browsing experience on Sims 4 custom content (CC) related websites by providing additional features to streamline downloading and installing mods.
