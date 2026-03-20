@@ -1,8 +1,5 @@
-// background.js
-
 let lastKnownItemName = "TSR Download";
 
-// Listen for the name from the content script
 chrome.runtime.onMessage.addListener((message) => {
     if (message.type === "SET_TSR_NAME") {
         lastKnownItemName = message.name;
@@ -11,22 +8,29 @@ chrome.runtime.onMessage.addListener((message) => {
 
 chrome.downloads.onCreated.addListener((downloadItem) => {
     if (downloadItem.url.includes("thesimsresource.com")) {
-        // 1. Cancel the browser's default download
-        chrome.downloads.cancel(downloadItem.id);
+        // Check if TSR interception is enabled
+        chrome.storage.sync.get('tsrEnabled', (data) => {
+            if (data.tsrEnabled === false) return; // Exit if disabled
 
-        const encodedUrl = encodeURIComponent(downloadItem.url);
-        const encodedName = encodeURIComponent(lastKnownItemName);
-        const deeplink = `sims4modmanager://direct-download/?url=${encodedUrl}&name=${encodedName}`;
+            chrome.downloads.cancel(downloadItem.id);
 
-        // 2. Send it back to the tab to trigger a "User Gesture" click
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            if (tabs[0]) {
-                chrome.tabs.sendMessage(tabs[0].id, {
-                    type: "TRIGGER_S4MM_DEEPLINK",
-                    deeplink: deeplink,
-                    fileName: lastKnownItemName
-                });
-            }
+            const encodedUrl = encodeURIComponent(downloadItem.url);
+            const encodedName = encodeURIComponent(lastKnownItemName);
+            const deeplink = `sims4modmanager://direct-download/?url=${encodedUrl}&name=${encodedName}`;
+
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                if (tabs[0]) {
+                    chrome.tabs.sendMessage(tabs[0].id, {
+                        type: "TRIGGER_S4MM_DEEPLINK",
+                        deeplink: deeplink,
+                        fileName: lastKnownItemName
+                    }, (response) => {
+                        if (chrome.runtime.lastError) {
+                            chrome.tabs.update(tabs[0].id, { url: deeplink });
+                        }
+                    });
+                }
+            });
         });
     }
 });

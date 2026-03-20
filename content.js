@@ -107,10 +107,17 @@ chrome.runtime.onMessage.addListener((request) => {
 
 // --- INITIALIZATION ---
 function init() {
-    injectPatreonButtons();
-    handleTSR();
+    chrome.storage.sync.get(['patreonEnabled', 'tsrEnabled'], (data) => {
+        if (window.location.hostname.includes("patreon.com") && data.patreonEnabled !== false) {
+            injectPatreonButtons(); // Use your existing logic here
+        }
+        if (window.location.hostname.includes("thesimsresource.com") && data.tsrEnabled !== false) {
+            handleTSR();
+        }
+    });
 }
 
-init();
+// Ensure the observer also respects the settings
 const observer = new MutationObserver(() => init());
 observer.observe(document.body, { childList: true, subtree: true });
+init();
