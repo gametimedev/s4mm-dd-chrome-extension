@@ -8,8 +8,9 @@
 The S4MM-DD Chrome Extension is a companion tool for the Sims 4 Mod Manager. It enhances your browsing experience on Sims 4 custom content (CC) related websites by providing additional features to streamline downloading and installing mods.
 
 ## Features
-- **Patreon Support**: Currently, the extension is active on Patreon, with plans to expand support to more Sims 4 CC websites in the future.
-- **Deeplink Download Button**: Adds an alternative download button that allows users to download and install mods directly via the Sims 4 Mod Manager.
+- **Patreon Support**: Adds an alternative "Download with S4MM" button, enabling direct integration with the Sims 4 Mod Manager.
+- **TSR Support**: Automatically intercepts downloads on The Sims Resource (TSR) without displaying an additional button, ensuring seamless handling by the extension.
+
 
 ## Installation
 
