@@ -1,10 +1,38 @@
-<div style="width: 200px; padding: 10px; font-family: sans-serif;">
-    <h3>S4MM Settings</h3>
-    <label>
-    <input type="checkbox" id="patreonToggle" checked> Enable on Patreon
-  </label><br><br>
-    <label>
-    <input type="checkbox" id="tsrToggle" checked> Enable on TSR
-  </label>
+<div style="width: 225px; font-family: sans-serif;">
+    <link rel="stylesheet" href="popup.css">
+    <div class="header">
+        <img src="icons/icon48.png">
+        <div>
+            <h3>Direct Download</h3>
+            <h5>Browser Extension</h5>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!--Toggle pages-->
+        <div class="page-toggle">
+            <p>Enable on Patreon</p>
+            <label class="switch">
+            <input type="checkbox" id="patreonToggle" >
+            <span class="slider round"></span>
+        </label>
+        </div>
+        <div class="page-toggle">
+            <p>Enable on TSR</p>
+            <label class="switch">
+            <input type="checkbox" id="tsrToggle" >
+            <span class="slider round"></span>
+        </label>
+        </div>
+
+        <!--Version & Help-->
+        <div class="footer">
+            <p>Version 1.1</p>
+            <a href="https://s4mm.gametimedev.de/direct-download" target="_blank">Learn More</a>
+        </div>
+
+
+    </div>
     <script src="popup.js"></script>
 </div>

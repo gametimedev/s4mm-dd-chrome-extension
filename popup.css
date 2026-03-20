@@ -1,0 +1,153 @@
+body {
+    background-color: #15171b;
+    color: gray;
+    border: 1px solid #333;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    gap: 5px;
+}
+
+.header {
+    display: flex;
+    gap: 10px;
+    background-color: #181a1f;
+    padding: 10px;
+    border-bottom: 1px solid #333;
+}
+
+.header div {
+    display: flex;
+    flex-direction: column;
+    margin: auto 0;
+}
+
+.header img {
+    width: 48px;
+    height: 48px;
+}
+
+.header h3 {
+    font-size: 16px;
+    margin: 0;
+    color: white;
+}
+
+.header h5 {
+    margin: 0;
+    font-size: 10px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.page-toggle {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.page-toggle p {
+    margin: auto 0;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer a {
+    color: gray;
+    text-decoration: none;
+    font-size: 10px;
+    opacity: 0.5;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+    opacity: 1;
+}
+
+.footer a:active {
+    color: #72e262;
+}
+
+.footer p {
+    margin: auto 0;
+    font-size: 12px;
+    font-size: 10px;
+    opacity: 0.5;
+}
+
+
+/* Container size reduced from 60x34 to 30x18 */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 18px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+
+/* Knob size reduced from 26px to 12px */
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #72e262;
+    /* Updated to match your S4MM green */
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #72e262;
+}
+
+
+/* Slide distance reduced to match new width */
+
+input:checked+.slider:before {
+    transform: translateX(12px);
+}
+
+
+/* Rounded corners adjusted for smaller height */
+
+.slider.round {
+    border-radius: 18px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
