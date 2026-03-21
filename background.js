@@ -6,18 +6,26 @@ chrome.runtime.onMessage.addListener((message) => {
     }
 });
 
-chrome.downloads.onCreated.addListener((downloadItem) => {
+chrome.downloads.onDeterminingFilename.addListener((downloadItem, suggest) => {
+    // 1. Only intercept if it's from TSR
     if (downloadItem.url.includes("thesimsresource.com")) {
-        // Check if TSR interception is enabled
-        chrome.storage.sync.get('tsrEnabled', (data) => {
-            if (data.tsrEnabled === false) return; // Exit if disabled
 
+        chrome.storage.sync.get('tsrEnabled', (data) => {
+            if (data.tsrEnabled === false) {
+                suggest(); // Let the download continue normally
+                return;
+            }
+
+            // 2. Cancel the browser download
             chrome.downloads.cancel(downloadItem.id);
 
-            const encodedUrl = encodeURIComponent(downloadItem.url);
+            // 3. Now downloadItem.url is much more likely to be the FINAL redirect URL
+            const finalUrl = downloadItem.url;
+            const encodedUrl = encodeURIComponent(finalUrl);
             const encodedName = encodeURIComponent(lastKnownItemName);
             const deeplink = `sims4modmanager://direct-download/?url=${encodedUrl}&name=${encodedName}`;
 
+            // 4. Send to Content Script to trigger the 'User Gesture'
             chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                 if (tabs[0]) {
                     chrome.tabs.sendMessage(tabs[0].id, {
@@ -32,5 +40,9 @@ chrome.downloads.onCreated.addListener((downloadItem) => {
                 }
             });
         });
+
+        // Return true to indicate we will call suggest() asynchronously 
+        // (though we are canceling, this prevents the browser from hanging)
+        return true;
     }
 });

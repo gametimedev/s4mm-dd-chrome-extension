@@ -3,7 +3,7 @@
     "name": "S4MM - Direct Download",
     "description": "Adds direct download buttons to some Sims Related download websites, like Patreon.",
     "version": "1.1",
-    "permissions": ["activeTab", "downloads", "storage"],
+    "permissions": ["activeTab", "downloads", "storage", "downloads.shelf"],
     "content_scripts": [{
         "matches": ["https://www.patreon.com/*", "https://www.thesimsresource.com/*"],
         "js": ["content.js"]
